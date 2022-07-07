@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Brand3">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Brand_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="product2" Relationship="Self.FK_product2_Brand3" FromRole="Brand3" ToRole="product2" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="product2" Relationship="Self.FK_product2_category" FromRole="category" ToRole="product2" />
+  </EntityType>
+  <EntityType Name="product2">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="proname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cat_id" Type="Int32" />
+    <Property Name="brand_id" Type="Int32" />
+    <Property Name="quntity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Brand3" Relationship="Self.FK_product2_Brand3" FromRole="product2" ToRole="Brand3" />
+    <NavigationProperty Name="category" Relationship="Self.FK_product2_category" FromRole="product2" ToRole="category" />
+  </EntityType>
+  <Association Name="FK_product2_Brand3">
+    <End Role="Brand3" Type="Self.Brand3" Multiplicity="0..1" />
+    <End Role="product2" Type="Self.product2" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand3">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product2">
+        <PropertyRef Name="brand_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product2_category">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="product2" Type="Self.product2" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product2">
+        <PropertyRef Name="cat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Shop_BDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brand3" EntityType="Self.Brand3" />
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="product2" EntityType="Self.product2" />
+    <AssociationSet Name="FK_product2_Brand3" Association="Self.FK_product2_Brand3">
+      <End Role="Brand3" EntitySet="Brand3" />
+      <End Role="product2" EntitySet="product2" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product2_category" Association="Self.FK_product2_category">
+      <End Role="category" EntitySet="categories" />
+      <End Role="product2" EntitySet="product2" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

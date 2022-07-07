@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Brand3">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Brand Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Category Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="product2">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="proname" Type="varchar" MaxLength="50" />
+    <Property Name="cat_id" Type="int" />
+    <Property Name="brand_id" Type="int" />
+    <Property Name="quntity" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <Association Name="FK_product2_Brand3">
+    <End Role="Brand3" Type="Self.Brand3" Multiplicity="0..1" />
+    <End Role="product2" Type="Self.product2" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand3">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product2">
+        <PropertyRef Name="brand_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product2_category">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="product2" Type="Self.product2" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product2">
+        <PropertyRef Name="cat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Brand3" EntityType="Self.Brand3" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product2" EntityType="Self.product2" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_product2_Brand3" Association="Self.FK_product2_Brand3">
+      <End Role="Brand3" EntitySet="Brand3" />
+      <End Role="product2" EntitySet="product2" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product2_category" Association="Self.FK_product2_category">
+      <End Role="category" EntitySet="category" />
+      <End Role="product2" EntitySet="product2" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

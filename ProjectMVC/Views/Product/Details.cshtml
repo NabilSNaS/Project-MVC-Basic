@@ -1,0 +1,58 @@
+﻿@model ProjectMVC.Models.product2
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>product2</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.proname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quntity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quntity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand3.Brand_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand3.Brand_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.category.Category_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category.Category_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brand3">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Brand Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="product2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proname" Type="varchar" MaxLength="50" />
+          <Property Name="cat_id" Type="int" />
+          <Property Name="brand_id" Type="int" />
+          <Property Name="quntity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_product2_Brand3">
+          <End Role="Brand3" Type="Self.Brand3" Multiplicity="0..1" />
+          <End Role="product2" Type="Self.product2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand3">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product2">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product2_category">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="product2" Type="Self.product2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product2">
+              <PropertyRef Name="cat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Brand3" EntityType="Self.Brand3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product2" EntityType="Self.product2" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_product2_Brand3" Association="Self.FK_product2_Brand3">
+            <End Role="Brand3" EntitySet="Brand3" />
+            <End Role="product2" EntitySet="product2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product2_category" Association="Self.FK_product2_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="product2" EntitySet="product2" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Brand3">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Brand_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product2" Relationship="Self.FK_product2_Brand3" FromRole="Brand3" ToRole="product2" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product2" Relationship="Self.FK_product2_category" FromRole="category" ToRole="product2" />
+        </EntityType>
+        <EntityType Name="product2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cat_id" Type="Int32" />
+          <Property Name="brand_id" Type="Int32" />
+          <Property Name="quntity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Brand3" Relationship="Self.FK_product2_Brand3" FromRole="product2" ToRole="Brand3" />
+          <NavigationProperty Name="category" Relationship="Self.FK_product2_category" FromRole="product2" ToRole="category" />
+        </EntityType>
+        <Association Name="FK_product2_Brand3">
+          <End Role="Brand3" Type="Self.Brand3" Multiplicity="0..1" />
+          <End Role="product2" Type="Self.product2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand3">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product2">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product2_category">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="product2" Type="Self.product2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product2">
+              <PropertyRef Name="cat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Shop_BDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brand3" EntityType="Self.Brand3" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="product2" EntityType="Self.product2" />
+          <AssociationSet Name="FK_product2_Brand3" Association="Self.FK_product2_Brand3">
+            <End Role="Brand3" EntitySet="Brand3" />
+            <End Role="product2" EntitySet="product2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product2_category" Association="Self.FK_product2_category">
+            <End Role="category" EntitySet="categories" />
+            <End Role="product2" EntitySet="product2" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Shop_BDEntities">
+          <EntitySetMapping Name="Brand3">
+            <EntityTypeMapping TypeName="Model.Brand3">
+              <MappingFragment StoreEntitySet="Brand3">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Brand_Name" ColumnName="Brand Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="Model.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product2">
+            <EntityTypeMapping TypeName="Model.product2">
+              <MappingFragment StoreEntitySet="product2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="proname" ColumnName="proname" />
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
+                <ScalarProperty Name="quntity" ColumnName="quntity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
